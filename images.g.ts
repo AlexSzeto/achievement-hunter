@@ -28,7 +28,76 @@ namespace myImages {
 
     helpers._registerFactory("animation", function(name: string) {
         switch(helpers.stringTrim(name)) {
-
+            case "hero-walk-left":
+            case "anim1":return [img`
+. . . . f f f f f f f . . . . . 
+. . . f 8 6 6 6 6 6 6 f . . . . 
+. . f 8 6 6 6 7 7 7 7 6 f . . . 
+. . f 8 6 6 6 8 7 7 7 7 6 f . . 
+. . f 8 6 8 8 8 8 7 7 7 7 f . . 
+. . f 8 8 d d f b 8 7 7 7 f . . 
+. . f 8 e d d f 1 d 8 7 7 f . . 
+. . . f e d d d d d 8 7 8 f . . 
+. . . . f e 4 4 4 8 8 f f . . . 
+. . . . f b e b c c e f . . . . 
+. . . . f c b c d d c f . . . . 
+. . . . f c b c d d c f . . . . 
+. . . . f 5 5 e c c e f . . . . 
+. . . . . f 4 4 4 4 4 f . . . . 
+. . . . . f c c c c f . . . . . 
+. . . . . . f f f f . . . . . . 
+`, img`
+. . . . . . . . . . . . . . . . 
+. . . . f f f f f f f . . . . . 
+. . . f 8 6 6 6 6 6 6 f . . . . 
+. . f 8 6 6 6 7 7 7 7 6 f . . . 
+. . f 8 6 6 6 8 7 7 7 7 6 f . . 
+. . f 8 6 8 8 8 8 7 7 7 7 f . . 
+. . f 8 8 d d f b 8 7 7 7 f . . 
+. . f 8 e d d f 1 d 8 7 7 f . . 
+. . . f e d d d d d 8 7 8 f . . 
+. . . . f e 4 4 4 8 8 f f . . . 
+. . . f f b e e e e b c f . . . 
+. . . f f c b b b b c d d f . . 
+. . . . f c b b b b c d d f . . 
+. . . . f 5 5 e e e e f f . . . 
+. . . . f 4 4 f f 4 4 f . . . . 
+. . . . f f f . . f f f . . . . 
+`, img`
+. . . . f f f f f f f . . . . . 
+. . . f 8 6 6 6 6 6 6 f . . . . 
+. . f 8 6 6 6 7 7 7 7 6 f . . . 
+. . f 8 6 6 6 8 7 7 7 7 6 f . . 
+. . f 8 6 8 8 8 8 7 7 7 7 f . . 
+. . f 8 8 d d f b 8 7 7 7 f . . 
+. . f 8 e d d f 1 d 8 7 7 f . . 
+. . . f e d d d d d 8 7 8 f . . 
+. . . . f e 4 4 4 8 8 f f . . . 
+. . . . f b e b c c e f . . . . 
+. . . . f c b c d d c f . . . . 
+. . . . f c b c d d c f . . . . 
+. . . . f 5 5 e c c e f . . . . 
+. . . . . f 4 4 4 4 4 f . . . . 
+. . . . . f c c c c f . . . . . 
+. . . . . . f f f f . . . . . . 
+`, img`
+. . . . . . . . . . . . . . . . 
+. . . . f f f f f f f . . . . . 
+. . . f 8 6 6 6 6 6 6 f . . . . 
+. . f 8 6 6 6 7 7 7 7 6 f . . . 
+. . f 8 6 6 6 8 7 7 7 7 6 f . . 
+. . f 8 6 8 8 8 8 7 7 7 7 f . . 
+. . f 8 8 d d f b 8 7 7 7 f . . 
+. . f 8 e d d f 1 d 8 7 7 f . . 
+. . . f e d d d d d 8 7 8 f . . 
+. . . . f e 4 4 4 8 8 f f . . . 
+. . . . f c e e e e b c f . . . 
+. . . f d d c b b b b c f f . . 
+. . . f d d c b b b b c f f . . 
+. . . . f c 5 e e e e f f . . . 
+. . . . f 4 4 f . f 4 4 f . . . 
+. . . . . f f . . . f f f . . . 
+`];
         }
         return null;
     })

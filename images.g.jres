@@ -1,0 +1,12 @@
+{
+    "image1": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAICI+A//AAAAaHeH/90PAIB2d2bP3f8PaGa3QS7MTvpohvbf5LJO/Ghn2N3kK0UPaGfY3eQrRQ9oZ/jf5LtO/GiHuEG+zE76gHZ4Zs/d/w8AaHeH/90PAACAiPgP/wAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "hero-standing"
+    },
+    "*": {
+        "mimeType": "image/x-mkcd-f4",
+        "dataEncoding": "base64",
+        "namespace": "myImages"
+    }
+}

@@ -1,13 +1,30 @@
 namespace SpriteKind {
     export const StatusBar = SpriteKind.create()
 }
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    showMinimap = !(showMinimap)
-    if (showMinimap) {
-        myMinimap.setFlag(SpriteFlag.Invisible, false)
-    } else {
-        myMinimap.setFlag(SpriteFlag.Invisible, true)
-    }
+
+controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+    animation.runImageAnimation(
+    hero,
+    assets.animation`hero-walk-up`,
+    200,
+    true
+    )
+})
+controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
+    animation.runImageAnimation(
+    hero,
+    animHeroWalkLeft,
+    200,
+    true
+    )
+})
+controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+    animation.runImageAnimation(
+    hero,
+    animHeroWalkRight,
+    200,
+    true
+    )
 })
 function generateMap () {
     clearMap()
@@ -36,6 +53,14 @@ function generateMap () {
         )
     }
 }
+controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
+    animation.runImageAnimation(
+    hero,
+    assets.animation`hero-walk-down`,
+    200,
+    true
+    )
+})
 function mapSplit (percent: number) {
     return percent / 100 * tileUtil.tilemapProperty(tileUtil.currentTilemap(), tileUtil.TilemapProperty.Columns)
 }
@@ -50,14 +75,16 @@ let localY = 0
 let localX = 0
 let localWidth = 0
 let localHeight = 0
-let showMinimap = false
-let myMinimap: Sprite = null
+let hero: Sprite = null
+let animHeroWalkRight: Image[] = []
+let animHeroWalkLeft: Image[] = []
 tiles.setCurrentTilemap(tileUtil.createSmallMap(tilemap`tilemap-tiny-island`))
 generateMap()
-let hero = sprites.create(assets.image`hero-standing`, SpriteKind.Player)
-controller.moveSprite(hero, 96, 96)
+animHeroWalkLeft = assets.animation`hero-walk-left`
+animHeroWalkRight = assets.animation`hero-walk-left`
+for (let localImage of animHeroWalkRight) {
+    localImage.flipX()
+}
+hero = sprites.create(assets.image`hero-standing`, SpriteKind.Player)
+controller.moveSprite(hero, 48, 48)
 scene.cameraFollowSprite(hero)
-myMinimap = sprites.create(minimap.getImage(minimap.minimap(MinimapScale.Eighth, 2, 15)), SpriteKind.Player)
-myMinimap.setStayInScreen(true)
-myMinimap.setFlag(SpriteFlag.Invisible, true)
-showMinimap = false

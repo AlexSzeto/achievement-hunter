@@ -268,7 +268,7 @@ namespace myImages {
 . . f 7 7 6 6 6 6 6 6 6 8 f . . 
 . . f 7 7 6 6 6 6 6 6 6 8 f . . 
 . . f 7 7 7 6 6 6 6 6 8 8 f . . 
-. . . f f f f f f f f f f . . . 
+. . f f f f f f f f f f f f . . 
 . . . f d f b b c f d d f . . . 
 . . . f d f b b c f d d f . . . 
 . . . . f f 7 7 6 6 f f . . . . 
@@ -277,15 +277,15 @@ namespace myImages {
 . . . . . . . . . . . . . . . . 
 `, img`
 . . . . . . . . . . . . . . . . 
-. . . . f f f f f f f . . . . . 
-. . . f 7 7 7 7 7 7 7 f . . . . 
+. . . . . f f f f f f . . . . . 
+. . . f f 7 7 7 7 7 7 f . . . . 
 . . f 7 7 7 7 7 7 7 7 7 f . . . 
 . . f 7 7 7 7 7 7 7 7 6 6 f . . 
 . . f 7 7 7 7 7 7 7 6 6 6 f . . 
 . . f 7 7 6 6 6 6 6 6 6 6 f . . 
 . . f 7 7 6 6 6 6 6 6 6 6 f . . 
 . . f 7 7 6 6 6 6 6 6 6 8 f . . 
-. . . f f 6 6 6 6 6 8 8 8 f . . 
+. . f f f 6 6 6 6 6 8 8 8 f . . 
 . . . f d f f f f f f f f f . . 
 . . . . f f b b f d d f . . . . 
 . . . . . f b b f d d f . . . . 
@@ -302,7 +302,7 @@ namespace myImages {
 . . f 7 7 6 6 6 6 6 6 6 8 f . . 
 . . f 7 7 6 6 6 6 6 6 6 8 f . . 
 . . f 7 7 7 6 6 6 6 6 8 8 f . . 
-. . . f f f f f f f f f f . . . 
+. . f f f f f f f f f f f f . . 
 . . . f d d f b c c f d f . . . 
 . . . f d d f b c c f d f . . . 
 . . . . f f 7 7 6 6 f f . . . . 
@@ -311,15 +311,15 @@ namespace myImages {
 . . . . . . . . . . . . . . . . 
 `, img`
 . . . . . . . . . . . . . . . . 
-. . . . . f f f f f f f . . . . 
-. . . . f 7 7 7 7 7 7 6 f . . . 
+. . . . . f f f f f f . . . . . 
+. . . . f 7 7 7 7 7 7 f f . . . 
 . . . f 7 7 7 7 7 7 7 6 6 f . . 
 . . f 7 7 7 7 7 7 7 6 6 6 f . . 
-. . f 7 7 7 7 7 7 6 6 6 6 f . . 
+. . f 7 7 7 7 7 7 6 6 6 8 f . . 
 . . f 7 7 6 6 6 6 6 6 6 8 f . . 
 . . f 7 7 6 6 6 6 6 6 6 8 f . . 
-. . f 7 7 7 6 6 6 6 6 8 8 f . . 
-. . f 7 7 7 7 6 6 6 6 f f . . . 
+. . f 7 7 7 6 6 6 6 6 6 8 f . . 
+. . f 7 7 7 7 6 6 6 6 f f f . . 
 . . f f f f f f f f f d f . . . 
 . . . . f d d f c c f f . . . . 
 . . . . f d d f c c f . . . . . 

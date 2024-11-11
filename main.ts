@@ -26,6 +26,16 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    animation.runImageAnimation(
+        hero,
+        assets.animation`hero-use-left`,
+        200,
+        false
+    )
+    // hero.vx = -25
+    // hero.fx = 50
+})
 function generateMap () {
     clearMap()
     for (let index = 0; index < 3; index++) {

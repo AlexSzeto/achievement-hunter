@@ -2,7 +2,12 @@
     "name": "Scout Master",
     "description": "",
     "dependencies": {
-        "device": "*"
+        "device": "*",
+        "arcade-tile-util": "github:microsoft/arcade-tile-util#v1.2.0",
+        "Map Generator": "github:alexszeto/map-generator#v0.0.6",
+        "arcade-minimap": "github:microsoft/arcade-minimap#v0.6.1",
+        "Extra Effects": "github:alexszeto/extra-effects#v3.1.0",
+        "Card Kit": "github:alexszeto/card-kit#v0.4.0"
     },
     "files": [
         "main.blocks",
@@ -24,5 +29,5 @@
     "supportedTargets": [
         "arcade"
     ],
-    "preferredEditor": "tsprj"
+    "preferredEditor": "blocksprj"
 }

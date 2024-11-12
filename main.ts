@@ -1,14 +1,9 @@
 namespace SpriteKind {
     export const StatusBar = SpriteKind.create()
 }
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    showMinimap = !(showMinimap)
-    if (showMinimap) {
-        myMinimap.setFlag(SpriteFlag.Invisible, false)
-    } else {
-        myMinimap.setFlag(SpriteFlag.Invisible, true)
-    }
-})
+function widthPct (percent: number) {
+    return percent / 100 * tileUtil.tilemapProperty(tileUtil.currentTilemap(), tileUtil.TilemapProperty.Columns)
+}
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     hero,
@@ -16,12 +11,6 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     100,
     true
     )
-})
-controller.right.onEvent(ControllerButtonEvent.Released, function () {
-    animation.stopAnimation(animation.AnimationTypes.All, hero)
-})
-controller.left.onEvent(ControllerButtonEvent.Released, function () {
-    animation.stopAnimation(animation.AnimationTypes.All, hero)
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -34,10 +23,10 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
 function generateMap () {
     clearMap()
     for (let index = 0; index < 3; index++) {
-        localHeight = mapSplit(randint(20, 80))
-        localWidth = mapSplit(randint(20, 80))
-        localX = mapSplit(randint(0, 40))
-        localY = mapSplit(randint(0, 40))
+        localHeight = widthPct(randint(20, 80))
+        localWidth = widthPct(randint(20, 80))
+        localX = widthPct(randint(0, 40))
+        localY = widthPct(randint(0, 40))
         mapGen.generateTerrain(
         [
         assets.tile`transparency8`,
@@ -49,7 +38,7 @@ function generateMap () {
         assets.tile`tile-mountain`,
         assets.tile`tile-mountain`
         ],
-        mapSplit(16),
+        widthPct(16),
         true,
         localY,
         localY + localHeight,
@@ -57,9 +46,6 @@ function generateMap () {
         localX + localWidth
         )
     }
-}
-function mapSplit (percent: number) {
-    return percent / 100 * tileUtil.tilemapProperty(tileUtil.currentTilemap(), tileUtil.TilemapProperty.Columns)
 }
 function clearMap () {
     for (let localX = 0; localX <= tileUtil.tilemapProperty(tileUtil.currentTilemap(), tileUtil.TilemapProperty.Columns); localX++) {
@@ -72,8 +58,6 @@ let localY = 0
 let localX = 0
 let localWidth = 0
 let localHeight = 0
-let showMinimap = false
-let myMinimap: Sprite = null
 let hero: Sprite = null
 let animHeroWalkRight: Image[] = []
 let animHeroWalkLeft: Image[] = []
@@ -84,10 +68,6 @@ animHeroWalkRight = assets.animation`hero-walk-left`
 for (let localImage of animHeroWalkRight) {
     localImage.flipX()
 }
-hero = sprites.create(assets.image`hero-standing`, SpriteKind.Player)
+hero = sprites.create(assets.image`blank`, SpriteKind.Player)
 controller.moveSprite(hero, 96, 96)
 scene.cameraFollowSprite(hero)
-myMinimap = sprites.create(minimap.getImage(minimap.minimap(MinimapScale.Eighth, 2, 15)), SpriteKind.Player)
-myMinimap.setStayInScreen(true)
-myMinimap.setFlag(SpriteFlag.Invisible, true)
-showMinimap = false

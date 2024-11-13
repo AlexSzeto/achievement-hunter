@@ -67,8 +67,8 @@ function generateMap () {
     for (let index = 0; index < 3; index++) {
         localHeight = widthPct(randint(20, 80))
         localWidth = widthPct(randint(20, 80))
-        localX = widthPct(randint(0, 40))
-        localY = widthPct(randint(0, 40))
+        localX2 = widthPct(randint(0, 40))
+        localY2 = widthPct(randint(0, 40))
         mapGen.generateTerrain(
         [
         assets.tile`transparency8`,
@@ -82,10 +82,10 @@ function generateMap () {
         ],
         widthPct(16),
         true,
-        localY,
-        localY + localHeight,
-        localX,
-        localX + localWidth
+        localY2,
+        localY2 + localHeight,
+        localX2,
+        localX2 + localWidth
         )
     }
 }
@@ -105,24 +105,30 @@ function clearMap () {
         }
     }
 }
-let localY = 0
-let localX = 0
+let localY2 = 0
+let localX2 = 0
 let localWidth = 0
 let localHeight = 0
 let heroFacing = ""
 let hero: Sprite = null
-let animHeroWalkRight: Image[] = []
 let animHeroUseRight: Image[] = []
+let animHeroWalkRight: Image[] = []
 tiles.setCurrentTilemap(tileUtil.createSmallMap(tilemap`tilemap-tiny-island`))
 generateMap()
-animHeroUseRight = assets.animation`hero-use-left`
 animHeroWalkRight = assets.animation`hero-walk-left`
 for (let localImage of animHeroWalkRight) {
     localImage.flipX()
 }
-for (let localImage of animHeroUseRight) {
-    localImage.flipX()
+animHeroUseRight = assets.animation`hero-use-left`
+for (let localImage2 of animHeroUseRight) {
+    localImage2.flipX()
 }
+let animSetHeroWalk = [
+assets.animation`hero-walk-up`,
+assets.animation`hero-walk-down`,
+assets.animation`hero-walk-left`,
+assets.animation`hero-walk-left`
+]
 hero = sprites.create(assets.image`blank`, SpriteKind.Player)
 controller.moveSprite(hero, 96, 96)
 scene.cameraFollowSprite(hero)

@@ -4,6 +4,11 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "blank"
     },
+    "image2": {
+        "data": "hwQIAAgAAAAA8A8AAN/+AADf/gAA3/4A8N/+D/DuzA8A3/4AAP//AA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "item-wood-sword"
+    },
     "anim1": {
         "namespace": "myAnimations",
         "id": "anim1",

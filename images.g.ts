@@ -7,6 +7,17 @@ namespace myImages {
             case "blank":return img`
 . 
 `;
+            case "image2":
+            case "item-wood-sword":return img`
+. . . . . . . . 
+. . . . f f . . 
+. f f f f e f f 
+f d d d d e d f 
+f e e e e c e f 
+. f f f f c f f 
+. . . . f f . . 
+. . . . . . . . 
+`;
         }
         return null;
     })

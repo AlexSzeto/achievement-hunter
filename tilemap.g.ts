@@ -1,4 +1,124 @@
 // Auto-generated code. Do not edit.
+namespace myImages {
+
+    helpers._registerFactory("image", function(name: string) {
+        switch(helpers.stringTrim(name)) {
+            case "myTiles.transparency16":return img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`;
+            case "myTiles.transparency8":return img`
+. . . . . . . . 
+. . . . . . . . 
+. . . . . . . . 
+. . . . . . . . 
+. . . . . . . . 
+. . . . . . . . 
+. . . . . . . . 
+. . . . . . . . 
+`;
+            case "myTiles.tile3":
+            case "tile-sand":return img`
+d d d d d b d d 
+d b d d d d d d 
+d d d d d d 1 d 
+d 1 d d d d d d 
+d d d d b d d 1 
+d d d d d d d d 
+d d 1 d d b d d 
+d d d d d d d d 
+`;
+            case "myTiles.tile4":
+            case "tile-grass":return img`
+7 7 7 6 7 7 6 7 
+5 7 7 7 7 7 7 7 
+6 5 7 7 7 7 7 7 
+7 6 5 7 7 7 5 7 
+7 7 7 7 7 5 6 7 
+5 7 7 7 5 6 7 7 
+5 6 7 7 7 7 5 7 
+7 7 6 7 7 7 7 6 
+`;
+            case "myTiles.tile5":
+            case "tile-mountain":return img`
+e e e e e c e e 
+c e e e c e e e 
+e c e e e e e c 
+e e e c e e c e 
+e c e e c e e e 
+c e e e e e c e 
+e e e e c e e c 
+e e e c e c e e 
+`;
+            case "myTiles.tile6":
+            case "tile-snow":return img`
+d 1 1 1 1 d 1 d 
+1 1 1 1 1 1 d 1 
+1 1 1 1 1 1 1 1 
+1 1 1 d 1 1 1 1 
+1 1 1 1 1 1 1 1 
+d 1 1 1 1 1 d 1 
+1 d 1 1 1 1 1 d 
+1 1 1 1 1 1 1 1 
+`;
+            case "myTiles.tile2":
+            case "tile-water":return img`
+9 9 9 9 9 9 9 9 
+9 9 9 9 9 1 9 9 
+9 1 9 9 9 9 9 9 
+9 9 9 9 9 9 9 9 
+9 9 9 9 9 9 9 9 
+9 9 9 9 9 9 1 9 
+9 9 9 1 9 9 9 9 
+9 9 9 9 9 9 9 9 
+`;
+            case "myTiles.tile1":
+            case "tile-deep-ocean":return img`
+8 8 8 8 8 8 8 8 
+8 6 6 8 8 8 8 8 
+8 8 8 8 8 8 8 8 
+8 8 8 8 8 8 8 8 
+8 8 8 8 8 6 6 9 
+8 8 8 8 8 8 8 8 
+6 6 8 8 8 8 8 8 
+8 8 8 8 8 8 8 8 
+`;
+        }
+        return null;
+    })
+
+    helpers._registerFactory("animation", function(name: string) {
+        switch(helpers.stringTrim(name)) {
+
+        }
+        return null;
+    })
+
+    helpers._registerFactory("song", function(name: string) {
+        switch(helpers.stringTrim(name)) {
+
+        }
+        return null;
+    })
+
+}
+// Auto-generated code. Do not edit.
+
+// Auto-generated code. Do not edit.
 namespace myTiles {
     //% fixedInstance jres blockIdentity=images._tile
     export const transparency16 = image.ofBuffer(hex``);
@@ -108,20 +228,20 @@ namespace myTiles {
 
     helpers._registerFactory("tile", function(name: string) {
         switch(helpers.stringTrim(name)) {
-            case "transparency16":return transparency16;
-            case "transparency8":return transparency8;
+            case "transparency16":return myTiles.transparency16;
+            case "transparency8":return myTiles.transparency8;
             case "tile-sand":
-            case "tile3":return tile3;
+            case "tile3":return myTiles.tile3;
             case "tile-grass":
-            case "tile4":return tile4;
+            case "tile4":return myTiles.tile4;
             case "tile-mountain":
-            case "tile5":return tile5;
+            case "tile5":return myTiles.tile5;
             case "tile-snow":
-            case "tile6":return tile6;
+            case "tile6":return myTiles.tile6;
             case "tile-water":
-            case "tile2":return tile2;
+            case "tile2":return myTiles.tile2;
             case "tile-deep-ocean":
-            case "tile1":return tile1;
+            case "tile1":return myTiles.tile1;
         }
         return null;
     })

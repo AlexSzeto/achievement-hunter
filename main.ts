@@ -24,8 +24,13 @@ Custom.createCharacter(hero, 'hero')
 Custom.startControlCharacter(hero)
 controller.moveSprite(hero, 48, 48)
 scene.cameraFollowSprite(hero)
+Custom.createItemImages('wood-sword', assets.image`item-wood-sword`, true)
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     Custom.startAction(hero, CharacterAction.Use)
+    setTimeout(function () {
+        Custom.createItemSprite(hero, 'wood-sword')
+    }, 200)
+
     setTimeout(function () {
         Custom.startAction(hero, CharacterAction.Stand)
     }, 400)

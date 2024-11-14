@@ -1,3 +1,7 @@
+namespace SpriteKind {
+  export const Interaction = SpriteKind.create()
+}
+
 enum CharacterFacing {
   Up,
   Down,
@@ -59,15 +63,96 @@ namespace Custom {
     }
   }
 
-  export function rotateClone(source: Image): Image {
+  //
+  // ***** Items *****
+  //
+  export function cloneRotate(source: Image): Image {
     const clone = image.create(source.height, source.width)
-    // Rotate 90 degrees counter-clockwise
     for (let x = 0; x < source.width; x++) {
       for (let y = 0; y < source.height; y++) {
-        clone.setPixel(y, source.width - x - 1, source.getPixel(x, y))
+        clone.setPixel(source.height - y - 1, x, source.getPixel(x, y))
       }
     }
     return clone
+  }
+
+  class ItemImageSet {
+    public up: Image
+    public down: Image
+    public left: Image
+    public right: Image    
+    constructor(
+      public name: string,
+      base: Image,
+      rotate: boolean
+    ) {
+      this.up = base
+      if (rotate) {
+        this.right = cloneRotate(base)
+        this.right.flipY()
+        this.down = base.clone()
+        this.down.flipY()
+        this.down.flipX()
+        this.left = this.right.clone()
+        this.left.flipX()
+      } else {
+        this.right = base
+        this.down = base
+        this.left = base
+      }
+    }
+  }
+
+  const itemImages: ItemImageSet[] = []
+
+  export function createItemImages(name: string, base: Image, rotate: boolean) {
+    itemImages.push(new ItemImageSet(name, base, rotate))
+  }
+
+  export function createItemSprite(sprite: Sprite, name: string): Sprite {
+    const imageSet = itemImages.find(item => item.name == name)
+    const facing = getCharacterProperties(sprite).facing
+    let itemImage: Image
+    switch (facing) {
+      case CharacterFacing.Up:
+        itemImage = imageSet.up
+        break
+      case CharacterFacing.Down:
+        itemImage = imageSet.down
+        break
+      case CharacterFacing.Left:
+        itemImage = imageSet.left
+        break
+      case CharacterFacing.Right:
+        itemImage = imageSet.right
+        break
+    }
+    const itemSprite = sprites.create(itemImage, SpriteKind.Interaction)
+    switch (facing) {
+      case CharacterFacing.Up:
+        itemSprite.x = sprite.x
+        itemSprite.y = sprite.y - (sprite.height + itemSprite.height) / 2
+        itemSprite.vy = -24
+        break
+      case CharacterFacing.Down:
+        itemSprite.x = sprite.x
+        itemSprite.y = sprite.y + (sprite.height + itemSprite.height) / 2
+        itemSprite.vy = 24
+        break
+      case CharacterFacing.Left:
+        itemSprite.x = sprite.x - (sprite.width + itemSprite.width) / 2
+        itemSprite.y = sprite.y
+        itemSprite.vy = 24
+        break
+      case CharacterFacing.Right:
+        itemSprite.x = sprite.x + (sprite.width + itemSprite.width) / 2
+        itemSprite.y = sprite.y
+        itemSprite.vy = 24
+        break
+    }
+    itemSprite.fy = 128
+    setTimeout(function () { itemSprite.destroy() }, 400)
+    return itemSprite
   }
 
   //

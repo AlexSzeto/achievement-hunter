@@ -9,13 +9,7 @@ enum CharacterFacing {
   Right
 }
 
-enum CharacterAction {
-  Stand,
-  Walk,
-  Use
-}
-
-namespace Custom {
+namespace Custom {  
 
   //
   // ***** Map Generation *****
@@ -162,7 +156,7 @@ namespace Custom {
     public right: Image[]
     constructor(
       public name: string,
-      public action: CharacterAction,
+      public action: string,
       public up: Image[],
       public down: Image[],
       public left: Image[],
@@ -176,22 +170,23 @@ namespace Custom {
   }
 
   class CharacterProperties {
+    public actionTimers: number[] = []
     constructor(
       public sprite: Sprite,
       public name: string,
       public facing: CharacterFacing,
-      public action: CharacterAction
+      public action: string,
     ) {}
   }
 
   const characterAnims: CharacterAnimation[] = []
   const characters: CharacterProperties[] = []
 
-  export function createAnimation(name: string, action: CharacterAction, up: Image[], down: Image[], left: Image[]) {
+  export function createAnimation(name: string, action: string, up: Image[], down: Image[], left: Image[]) {
     characterAnims.push(new CharacterAnimation(name, action, up, down, left))
   }
 
-  function getAnimation(name: string, action: CharacterAction, facing: CharacterFacing): Image[] {
+  function getAnimation(name: string, action: string, facing: CharacterFacing): Image[] {
     const anim = characterAnims.find(anim => anim.name == name && anim.action == action)
     switch (facing) {
       case CharacterFacing.Up:
@@ -210,8 +205,8 @@ namespace Custom {
   }
 
   export function createCharacter(sprite: Sprite, name: string) {
-    characters.push(new CharacterProperties(sprite, name, randint(0, 3), CharacterAction.Stand))
-    startAction(sprite, CharacterAction.Stand)
+    characters.push(new CharacterProperties(sprite, name, randint(0, 3), 'stand'))
+    startAction(sprite, 'stand')
   }
 
   export function changeFacing(sprite: Sprite, facing: CharacterFacing) {
@@ -226,20 +221,49 @@ namespace Custom {
     startAction(sprite, props.action)
   }
 
-  export function startAction(sprite: Sprite, action: CharacterAction) {
+  export function addActionTimedEvent(
+    sprite: Sprite,
+    timeout: number,
+    callback: (sprite: Sprite) => void
+  ) {
+    const props = getCharacterProperties(sprite)    
+    props.actionTimers.push(setTimeout(function () {
+      callback(sprite)      
+    }, timeout))
+  }
+
+  function clearActionTimers(sprite: Sprite) {
+    const props = getCharacterProperties(sprite)
+    for (const timer of props.actionTimers) {
+      clearTimeout(timer)
+    }
+    props.actionTimers = []
+  }
+
+  export function startAction(sprite: Sprite, action: string) {
+    clearActionTimers(sprite)
     const props = getCharacterProperties(sprite)
     props.action = action
     switch (action) {
-      case CharacterAction.Stand:
+      case 'stand':
         animation.stopAnimation(animation.AnimationTypes.All, sprite)
-        sprite.setImage(getAnimation(props.name, CharacterAction.Walk, props.facing)[0])
+        sprite.setImage(getAnimation(props.name, 'walk', props.facing)[0])
         break
-      default:
+      case 'walk':
         animation.runImageAnimation(
           sprite,
-          getAnimation(props.name, action, props.facing),
+          getAnimation(props.name, 'walk', props.facing),
           200,
-          action == CharacterAction.Walk
+          true
+        )
+        break
+      default:
+        const actionAnimation = getAnimation(props.name, action, props.facing)
+        animation.runImageAnimation(
+          sprite,
+          actionAnimation,
+          200,
+          false
         )
         break
     }
@@ -259,18 +283,18 @@ namespace Custom {
 
     if(controller.left.isPressed()) {
       changeFacing(controlledSprite, CharacterFacing.Left)
-      startAction(controlledSprite, CharacterAction.Walk)
+      startAction(controlledSprite, 'walk')
     } else if (controller.right.isPressed()) {
       changeFacing(controlledSprite, CharacterFacing.Right)
-      startAction(controlledSprite, CharacterAction.Walk)
+      startAction(controlledSprite, 'walk')
     } else if (controller.up.isPressed()) {
       changeFacing(controlledSprite, CharacterFacing.Up)
-      startAction(controlledSprite, CharacterAction.Walk)
+      startAction(controlledSprite, 'walk')
     } else if (controller.down.isPressed()) {
       changeFacing(controlledSprite, CharacterFacing.Down)
-      startAction(controlledSprite, CharacterAction.Walk)
+      startAction(controlledSprite, 'walk')
     } else {
-      startAction(controlledSprite, CharacterAction.Stand)
+      startAction(controlledSprite, 'stand')
     }
   }
 

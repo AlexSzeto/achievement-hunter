@@ -28,5 +28,5 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     Custom.startAction(hero, CharacterAction.Use)
     setTimeout(function () {
         Custom.startAction(hero, CharacterAction.Stand)
-    }, 200)
+    }, 400)
 })

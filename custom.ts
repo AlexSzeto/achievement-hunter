@@ -126,26 +126,33 @@ namespace Custom {
       case CharacterFacing.Up:
         itemSprite.x = sprite.x
         itemSprite.y = sprite.y - (sprite.height + itemSprite.height) / 2
+        // itemSprite.vx = -24
         itemSprite.vy = -24
         break
       case CharacterFacing.Down:
         itemSprite.x = sprite.x
         itemSprite.y = sprite.y + (sprite.height + itemSprite.height) / 2
+        // itemSprite.vx = 24
         itemSprite.vy = 24
         break
       case CharacterFacing.Left:
         itemSprite.x = sprite.x - (sprite.width + itemSprite.width) / 2
+        itemSprite.x -= 2
         itemSprite.y = sprite.y
+        // itemSprite.vx = -24
         itemSprite.vy = 24
         break
       case CharacterFacing.Right:
         itemSprite.x = sprite.x + (sprite.width + itemSprite.width) / 2
+        itemSprite.x += 2
         itemSprite.y = sprite.y
+        // itemSprite.vx = 24
         itemSprite.vy = 24
         break
     }
+    // itemSprite.fx = 128
     itemSprite.fy = 128
-    setTimeout(function () { itemSprite.destroy() }, 400)
+    setTimeout(function () { itemSprite.destroy() }, 300)
     return itemSprite
   }
 
@@ -171,6 +178,7 @@ namespace Custom {
 
   class CharacterProperties {
     public actionTimers: number[] = []
+    public locked: boolean = false
     constructor(
       public sprite: Sprite,
       public name: string,
@@ -240,9 +248,10 @@ namespace Custom {
     props.actionTimers = []
   }
 
-  export function startAction(sprite: Sprite, action: string) {
-    clearActionTimers(sprite)
+  export function startAction(sprite: Sprite, action: string, lock: boolean = false): boolean {
     const props = getCharacterProperties(sprite)
+    if(props.locked) return false
+    clearActionTimers(sprite)
     props.action = action
     switch (action) {
       case 'stand':
@@ -265,8 +274,20 @@ namespace Custom {
           200,
           false
         )
+        if (lock) {
+          props.locked = true
+          addActionTimedEvent(
+            sprite,
+            actionAnimation.length * 200,
+            function (sprite: Sprite) {
+              const props = getCharacterProperties(sprite)
+              props.locked = false
+            }
+          )
+        }
         break
     }
+    return true
   }
 
   //

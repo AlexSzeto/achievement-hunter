@@ -26,20 +26,23 @@ controller.moveSprite(hero, 48, 48)
 scene.cameraFollowSprite(hero)
 Custom.createItemImages('wood-sword', assets.image`item-wood-sword`, true)
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    Custom.startAction(hero, 'use')
-    Custom.addActionTimedEvent(
-        hero,
-        200,
-        function (sprite: Sprite) {
-            Custom.createItemSprite(sprite, 'wood-sword')
-        }
-    )
-
-    Custom.addActionTimedEvent(
-        hero,
-        400,
-        function (sprite: Sprite) {
-            Custom.startAction(sprite, 'stand')
-        }
-    )
+    if (Custom.startAction(hero, 'use', true)) {
+        controller.moveSprite(hero, 0, 0)
+        Custom.addActionTimedEvent(
+            hero,
+            200,
+            function (sprite: Sprite) {
+                Custom.createItemSprite(sprite, 'wood-sword')
+            }
+        )
+    
+        Custom.addActionTimedEvent(
+            hero,
+            400,
+            function (sprite: Sprite) {
+                Custom.startAction(sprite, 'stand')
+                controller.moveSprite(sprite, 48, 48)
+            }
+        )
+    }
 })

@@ -1,6 +1,42 @@
 namespace SpriteKind {
     export const StatusBar = SpriteKind.create()
 }
+let heroPalette = [
+    DefaultPaletteColor.Transparency,
+    DefaultPaletteColor.White,
+    DefaultPaletteColor.Red,
+    DefaultPaletteColor.Pink,
+    DefaultPaletteColor.Orange,
+    DefaultPaletteColor.Yellow,
+
+    // dark hair
+    DefaultPaletteColor.Red,
+    // light hair
+    DefaultPaletteColor.Orange,
+
+    // dark pants
+    DefaultPaletteColor.DarkPurple,
+    // light pants
+    DefaultPaletteColor.Brown,
+
+    // light shirt
+    DefaultPaletteColor.LightBlue,
+
+    DefaultPaletteColor.LightPurple,
+
+    // dark shirt
+    DefaultPaletteColor.Teal,
+
+    DefaultPaletteColor.Tan,
+
+    // shoes
+    DefaultPaletteColor.White,
+
+    DefaultPaletteColor.Black
+]
+
+const recolor = (anim: Image[]) => Custom.colorSwapAnimation(anim, heroPalette)
+
 let hero: Sprite = null
 tiles.setCurrentTilemap(tileUtil.createSmallMap(tilemap`tilemap-tiny-island`))
 Custom.resetMap()
@@ -8,16 +44,16 @@ Custom.createIsland()
 Custom.createAnimation(
     'hero',
     'walk',
-    assets.animation`hero-walk-up`,
-    assets.animation`hero-walk-down`,
-    assets.animation`hero-walk-left`
+    recolor(assets.animation`hero-walk-up`),
+    recolor(assets.animation`hero-walk-down`),
+    recolor(assets.animation`hero-walk-left`)
 )
 Custom.createAnimation(
     'hero',
     'use',
-    assets.animation`hero-use-up`,
-    assets.animation`hero-use-down`,
-    assets.animation`hero-use-left`
+    recolor(assets.animation`hero-use-up`),
+    recolor(assets.animation`hero-use-down`),
+    recolor(assets.animation`hero-use-left`)
 )
 hero = sprites.create(assets.image`blank`, SpriteKind.Player)
 Custom.createCharacter(hero, 'hero')

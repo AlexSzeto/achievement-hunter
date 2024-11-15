@@ -9,6 +9,25 @@ enum CharacterFacing {
   Right
 }
 
+enum DefaultPaletteColor {
+  Transparency = 0,
+  White,
+  Red,
+  Pink,
+  Orange,
+  Yellow,
+  Teal,
+  Green,
+  Blue,
+  LightBlue,
+  Purple,
+  LightPurple,
+  DarkPurple,
+  Tan,
+  Brown,
+  Black
+}
+
 namespace Custom {  
 
   //
@@ -58,8 +77,26 @@ namespace Custom {
   }
 
   //
-  // ***** Items *****
-  //
+  // ***** Image Manipulation *****
+  //  
+  export function colorSwap(image: Image, shift: number[]): Image {
+    const clone = image.clone()
+    for (let x = 0; x < clone.width; x++) {
+      for (let y = 0; y < clone.height; y++) {
+        const color = clone.getPixel(x, y)
+        if (color != 0) {
+          const newColor = shift[color]
+          clone.setPixel(x, y, newColor)
+        }
+      }
+    }
+    return clone
+  }
+
+  export function colorSwapAnimation(anim: Image[], shift: number[]): Image[] {
+    return anim.map(frame => colorSwap(frame, shift))
+  }
+
   export function cloneRotate(source: Image): Image {
     const clone = image.create(source.height, source.width)
     for (let x = 0; x < source.width; x++) {
@@ -70,6 +107,9 @@ namespace Custom {
     return clone
   }
 
+  //
+  // ***** Items *****
+  //
   class ItemImageSet {
     public up: Image
     public down: Image

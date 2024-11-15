@@ -30,9 +30,8 @@ enum DefaultPaletteColor {
 
 namespace Custom {  
 
-  //
   // ***** Map Generation *****
-  //
+  //#region
   function widthPct(percent: number): number {
     return Math.floor(tileUtil.currentTilemap().width * percent / 100)
   }
@@ -75,10 +74,48 @@ namespace Custom {
       )
     }
   }
+  //#endregion
 
-  //
   // ***** Image Manipulation *****
-  //  
+  //#region
+
+  const HERO_PSWAP = [
+    DefaultPaletteColor.Transparency,
+    DefaultPaletteColor.White,
+    DefaultPaletteColor.Red,
+
+    // light shoes
+    DefaultPaletteColor.White,
+
+    DefaultPaletteColor.Orange,
+    DefaultPaletteColor.Yellow,
+
+    // dark hair
+    DefaultPaletteColor.Red,
+    // light hair
+    DefaultPaletteColor.Orange,
+
+    // dark pants
+    DefaultPaletteColor.Purple,
+    // light pants
+    DefaultPaletteColor.Pink,
+
+    // light shirt
+    DefaultPaletteColor.LightBlue,
+
+    DefaultPaletteColor.LightPurple,
+
+    // dark shirt
+    DefaultPaletteColor.Teal,
+
+    DefaultPaletteColor.Tan,
+
+    // dark shoes
+    DefaultPaletteColor.Tan,
+
+    DefaultPaletteColor.Black
+  ]
+
   export function colorSwap(image: Image, shift: number[]): Image {
     const clone = image.clone()
     for (let x = 0; x < clone.width; x++) {
@@ -106,10 +143,10 @@ namespace Custom {
     }
     return clone
   }
+  //#endregion
 
-  //
   // ***** Items *****
-  //
+  //#region
   class ItemImageSet {
     public up: Image
     public down: Image
@@ -195,10 +232,10 @@ namespace Custom {
     setTimeout(function () { itemSprite.destroy() }, 300)
     return itemSprite
   }
+  //#endregion
 
-  //
   // ***** Character Animation *****
-  //
+  //#region
   class CharacterAnimation {
     public right: Image[]
     constructor(
@@ -231,7 +268,13 @@ namespace Custom {
   const characters: CharacterProperties[] = []
 
   export function createAnimation(name: string, action: string, up: Image[], down: Image[], left: Image[]) {
-    characterAnims.push(new CharacterAnimation(name, action, up, down, left))
+    characterAnims.push(new CharacterAnimation(
+      name,
+      action,
+      colorSwapAnimation(up, HERO_PSWAP),
+      colorSwapAnimation(down, HERO_PSWAP),
+      colorSwapAnimation(left, HERO_PSWAP)
+    ))
   }
 
   function getAnimation(name: string, action: string, facing: CharacterFacing): Image[] {
@@ -329,10 +372,10 @@ namespace Custom {
     }
     return true
   }
+  //#endregion
 
-  //
   // ***** Controller *****
-  //
+  //#region
   let controlledSprite: Sprite = null
 
   export function startControlCharacter(sprite: Sprite) {
@@ -368,5 +411,6 @@ namespace Custom {
   controller.right.onEvent(ControllerButtonEvent.Released, updateCharacterMovement)
   controller.up.onEvent(ControllerButtonEvent.Released, updateCharacterMovement)
   controller.down.onEvent(ControllerButtonEvent.Released, updateCharacterMovement)
+  //#endregion
 }
 

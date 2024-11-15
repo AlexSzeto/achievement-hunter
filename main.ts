@@ -5,7 +5,10 @@ let heroPalette = [
     DefaultPaletteColor.Transparency,
     DefaultPaletteColor.White,
     DefaultPaletteColor.Red,
-    DefaultPaletteColor.Pink,
+
+    // light shoes
+    DefaultPaletteColor.White,
+
     DefaultPaletteColor.Orange,
     DefaultPaletteColor.Yellow,
 
@@ -15,9 +18,9 @@ let heroPalette = [
     DefaultPaletteColor.Orange,
 
     // dark pants
-    DefaultPaletteColor.DarkPurple,
+    DefaultPaletteColor.Purple,
     // light pants
-    DefaultPaletteColor.Brown,
+    DefaultPaletteColor.Pink,
 
     // light shirt
     DefaultPaletteColor.LightBlue,
@@ -29,8 +32,8 @@ let heroPalette = [
 
     DefaultPaletteColor.Tan,
 
-    // shoes
-    DefaultPaletteColor.White,
+    // dark shoes
+    DefaultPaletteColor.Tan,
 
     DefaultPaletteColor.Black
 ]

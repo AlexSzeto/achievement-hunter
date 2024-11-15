@@ -256,7 +256,7 @@ namespace Custom {
     switch (action) {
       case 'stand':
         animation.stopAnimation(animation.AnimationTypes.All, sprite)
-        sprite.setImage(getAnimation(props.name, 'walk', props.facing)[0])
+        sprite.setImage(getAnimation(props.name, 'walk', props.facing)[1])
         break
       case 'walk':
         animation.runImageAnimation(

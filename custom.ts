@@ -137,14 +137,14 @@ namespace Custom {
         break
       case CharacterFacing.Left:
         itemSprite.x = sprite.x - (sprite.width + itemSprite.width) / 2
-        itemSprite.x -= 2
+        itemSprite.x -= 1
         itemSprite.y = sprite.y
         // itemSprite.vx = -24
         itemSprite.vy = 24
         break
       case CharacterFacing.Right:
         itemSprite.x = sprite.x + (sprite.width + itemSprite.width) / 2
-        itemSprite.x += 2
+        itemSprite.x += 1
         itemSprite.y = sprite.y
         // itemSprite.vx = 24
         itemSprite.vy = 24

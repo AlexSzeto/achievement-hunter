@@ -37,7 +37,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
                 Custom.createItemSprite(sprite, 'wood-sword')
             }
         )
-    
+
         Custom.addActionTimedEvent(
             hero,
             400,

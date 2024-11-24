@@ -1,7 +1,8 @@
 namespace SpriteKind {
-  export const Interaction = SpriteKind.create()
+  export const Resource = SpriteKind.create()
+  export const StatusBar = SpriteKind.create()
 }
-
+ 
 enum CharacterFacing {
   Up,
   Down,
@@ -145,9 +146,54 @@ namespace Custom {
   }
   //#endregion
 
+  // ***** Status Bars *****
+  //#region
+  class StatusBar {
+    public sprite: Sprite
+    private _value: number
+    private _max: number
+    constructor(
+      value: number,
+      max: number,
+      public color: number
+    ) {
+      this.sprite = sprites.create(assets.image`bar-base`, SpriteKind.StatusBar)
+      this._max = max
+      this.value = value
+    }
+
+    get value(): number {
+      return this._value
+    }
+
+    set value(value: number) {
+      this._value = value
+      this.sprite.image.fillRect(1, 1, Math.floor(14 * value / this._max), 2, this.color)
+    }
+
+    get max(): number {
+      return this._max
+    }
+
+    set max(max: number) {
+      this._max = max
+    }
+
+    redraw() {
+      const width = Math.min(Math.max(Math.floor(14 * this._value / this._max), 0), 14)
+      if (width > 0) {
+        this.sprite.image.fillRect(1, 1, width, 2, this.color)        
+      }
+      if (width < 14) {
+        this.sprite.image.fillRect(1 + width, 1, 14 - width, 2, 0)
+      }
+    }
+  }
+  //#endregion
+
   // ***** Items *****
   //#region
-  class ItemImageSet {
+  class DirectionalImageSet {
     public up: Image
     public down: Image
     public left: Image
@@ -174,15 +220,15 @@ namespace Custom {
     }
   }
 
-  const itemImages: ItemImageSet[] = []
+  const itemImages: DirectionalImageSet[] = []
 
-  export function createItemImages(name: string, base: Image, rotate: boolean) {
-    itemImages.push(new ItemImageSet(name, base, rotate))
+  export function createDirectionalImages(name: string, base: Image, rotate: boolean) {
+    itemImages.push(new DirectionalImageSet(name, base, rotate))
   }
 
   export function createItemSprite(sprite: Sprite, name: string): Sprite {
     const imageSet = itemImages.find(item => item.name == name)
-    const facing = getCharacterProperties(sprite).facing
+    const facing = getCharacterAnimationStatus(sprite).facing
     let itemImage: Image
     switch (facing) {
       case CharacterFacing.Up:
@@ -198,30 +244,32 @@ namespace Custom {
         itemImage = imageSet.right
         break
     }
-    const itemSprite = sprites.create(itemImage, SpriteKind.Interaction)
+    const itemSprite = sprites.create(itemImage, SpriteKind.Resource)
     switch (facing) {
       case CharacterFacing.Up:
         itemSprite.x = sprite.x
         itemSprite.y = sprite.y - (sprite.height + itemSprite.height) / 2
+        itemSprite.y += 1
         // itemSprite.vx = -24
         itemSprite.vy = -24
         break
       case CharacterFacing.Down:
         itemSprite.x = sprite.x
         itemSprite.y = sprite.y + (sprite.height + itemSprite.height) / 2
+        itemSprite.y -= 1
         // itemSprite.vx = 24
         itemSprite.vy = 24
         break
       case CharacterFacing.Left:
         itemSprite.x = sprite.x - (sprite.width + itemSprite.width) / 2
-        itemSprite.x -= 1
+        // itemSprite.x -= 1
         itemSprite.y = sprite.y
         // itemSprite.vx = -24
         itemSprite.vy = 24
         break
       case CharacterFacing.Right:
         itemSprite.x = sprite.x + (sprite.width + itemSprite.width) / 2
-        itemSprite.x += 1
+        // itemSprite.x += 1
         itemSprite.y = sprite.y
         // itemSprite.vx = 24
         itemSprite.vy = 24
@@ -253,7 +301,7 @@ namespace Custom {
     }
   }
 
-  class CharacterProperties {
+  class CharacterAnimationStatus {
     public actionTimers: number[] = []
     public locked: boolean = false
     constructor(
@@ -265,8 +313,17 @@ namespace Custom {
   }
 
   const characterAnims: CharacterAnimation[] = []
-  const characters: CharacterProperties[] = []
+  const characters: CharacterAnimationStatus[] = []
 
+  sprites.onDestroyed(SpriteKind.Enemy, function (sprite: Sprite) {
+    for (let i = 0; i < characters.length; i++) {
+      if (characters[i].sprite == sprite) {
+        characters.splice(i, 1)
+        return
+      }
+    }
+  })
+  
   export function createAnimation(name: string, action: string, up: Image[], down: Image[], left: Image[]) {
     characterAnims.push(new CharacterAnimation(
       name,
@@ -291,24 +348,24 @@ namespace Custom {
     }
   }
 
-  function getCharacterProperties(sprite: Sprite): CharacterProperties {
+  function getCharacterAnimationStatus(sprite: Sprite): CharacterAnimationStatus {
     return characters.find(character => character.sprite == sprite)
   }
 
   export function createCharacter(sprite: Sprite, name: string) {
-    characters.push(new CharacterProperties(sprite, name, randint(0, 3), 'stand'))
+    characters.push(new CharacterAnimationStatus(sprite, name, randint(0, 3), 'stand'))
     startAction(sprite, 'stand')
   }
 
   export function changeFacing(sprite: Sprite, facing: CharacterFacing) {
-    const props = getCharacterProperties(sprite)
+    const props = getCharacterAnimationStatus(sprite)
     if (facing != props.facing) {
       props.facing = facing
     }
   }
 
   export function restartAction(sprite: Sprite) {
-    const props = getCharacterProperties(sprite)
+    const props = getCharacterAnimationStatus(sprite)
     startAction(sprite, props.action)
   }
 
@@ -317,14 +374,14 @@ namespace Custom {
     timeout: number,
     callback: (sprite: Sprite) => void
   ) {
-    const props = getCharacterProperties(sprite)    
+    const props = getCharacterAnimationStatus(sprite)    
     props.actionTimers.push(setTimeout(function () {
       callback(sprite)      
     }, timeout))
   }
 
   function clearActionTimers(sprite: Sprite) {
-    const props = getCharacterProperties(sprite)
+    const props = getCharacterAnimationStatus(sprite)
     for (const timer of props.actionTimers) {
       clearTimeout(timer)
     }
@@ -332,7 +389,7 @@ namespace Custom {
   }
 
   export function startAction(sprite: Sprite, action: string, lock: boolean = false): boolean {
-    const props = getCharacterProperties(sprite)
+    const props = getCharacterAnimationStatus(sprite)
     if(props.locked) return false
     clearActionTimers(sprite)
     props.action = action
@@ -363,7 +420,7 @@ namespace Custom {
             sprite,
             actionAnimation.length * 200,
             function (sprite: Sprite) {
-              const props = getCharacterProperties(sprite)
+              const props = getCharacterAnimationStatus(sprite)
               props.locked = false
             }
           )

@@ -1,9 +1,7 @@
-namespace SpriteKind {
-    export const StatusBar = SpriteKind.create()
-}
-
-
 let hero: Sprite = null
+let bar: Sprite = sprites.create(assets.image`bar-base`, SpriteKind.StatusBar)
+bar.image.drawRect(1, 1, 8, 2, 3)
+
 tiles.setCurrentTilemap(tileUtil.createSmallMap(tilemap`tilemap-tiny-island`))
 Custom.resetMap()
 Custom.createIsland()
@@ -26,7 +24,7 @@ Custom.createCharacter(hero, 'hero')
 Custom.startControlCharacter(hero)
 controller.moveSprite(hero, 48, 48)
 scene.cameraFollowSprite(hero)
-Custom.createItemImages('wood-sword', assets.image`item-wood-sword`, true)
+Custom.createDirectionalImages('wood-sword', assets.image`item-wood-sword`, true)
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Custom.startAction(hero, 'use', true)) {
         controller.moveSprite(hero, 0, 0)
